@@ -4,10 +4,12 @@
     "type": "library",
     "license": "MIT",
     "keywords": ["laravel", "json", "api", "search", "filter", "sort", "relations"],
+    "homepage": "https://github.com/ricktap/Qriteria",
     "authors": [
         {
             "name": "Patrick Selge",
-            "email": "pselge@gmail.com"
+            "email": "pselge@gmail.com",
+            "role": "Developer"
         }
     ],
     "require": {
@@ -15,7 +17,7 @@
     },
     "autoload": {
       "psr-4": {
-        "ricktap\\Qriteria\\": "src/"
+        "RickTap\\Qriteria\\": "src/"
       }
     }
 }
