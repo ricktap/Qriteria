@@ -16,8 +16,12 @@ Qriterias *fluent Api* allows for three query hooks:
 - Write a more exhaustive documentation and maybe even a wiki
 - Build up a configuration file, that let's you rename parameters etc
 - Build up a service provider
-- Have an advanced filter algorithm, the syntax is in place, the parser still missing:
-  Syntax: filter=name:like:John%,(age:gt:60|age:lt:20),status:eq:occupied
+- Have an advanced filter algorithm. The syntax is in place, the parser is still
+  missing:\\
+  Syntax: 
+```
+filter=name:like:John%,(age:gt:60|age:lt:20),status:eq:occupied
+```
   Result: 
 
 ```php
