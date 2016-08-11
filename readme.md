@@ -1,12 +1,12 @@
 # Qriteria
 
 Home of Qriteria:
-[https://github.com/ricktap/Qriteria]{https://github.com/ricktap/Qriteria}
+[https://github.com/ricktap/Qriteria](https://github.com/ricktap/Qriteria)
 
 Qriteria is a frankenword containing the terms Query and Criteria.
 It is intended to take the $_GET Parameters of a request and maps the words
 *filter*, *fields*, *sort*, *include* and *limit* as described in the [JSON API
-Specification]{http://jsonapi.org/format/#fetching} to the query of an eloquent
+Specification](http://jsonapi.org/format/#fetching) to the query of an eloquent
 model.
 
 Qriterias *fluent Api* allows for three query hooks:
