@@ -14,6 +14,12 @@ Qriterias *fluent Api* allows for three query hooks:
 - on-call queries, that are called before the translation but after your pre-hook and only for this one instance object
 - method-based queries, those are called after the translation and can be used like a scope method in eloquent
 
+## Installation
+
+```shell
+composer require ricktap/qriteria
+```
+
 ## Todo
 
 - Write a more exhaustive documentation and maybe even a wiki
