@@ -1,0 +1,19 @@
+{
+    "name": "ricktap/qriteria",
+    "description": "Automatic url parameter mapping to sort, filter, include and select data in an easy to use fluent api within Laravel 5. The default parameter structure is compatible to the http://jsonapi.org specification.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["laravel", "json", "api", "search", "filter", "sort", "relations"],
+    "authors": [
+        {
+            "name": "Patrick Selge",
+            "email": "pselge@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+      "psr-4": {
+        "ricktap\\Qriteria\\": "src/"
+      }
+    }
+}
