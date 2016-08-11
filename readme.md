@@ -30,3 +30,12 @@ $query->where("name","LIKE","John%")->where(function ($q) {
   return $q->where("age",">",60)->orWhere("age","<",20);
 })->where("status","=","occupied");
 ```
+
+### Description:
+Every filter statement consists of three parts, separated by colons (:). The first
+part represents the field to query, the second part is the operation, that is
+available as a symbol or a word (i.e. you can use = or eq for the same thing)
+the third part is the value to compare to. the filter statements are separated
+by a comma (,) or a pipe (|). The comma means **and** the pipe means **or**.
+Statements can be wrapped into parenthesis like in a mathematical function, to
+sort their execution sequence.
