@@ -20,11 +20,24 @@ Qriterias *fluent Api* allows for three query hooks:
 composer require ricktap/qriteria
 ```
 
+add the following to your config/app.php inside the providers array
+
+```php
+RickTap\Qriteria\QriteriaServiceProvider::class,
+```
+
+## Configuration
+
+To configure Qriteria, you can generate the config/qriteria.php config file by 
+running the command:
+
+```shell
+php artisan vendor:publish
+``` 
+
 ## Todo
 
 - Write a more exhaustive documentation and maybe even a wiki
-- Build up a configuration file, that let's you rename parameters etc
-- Build up a service provider
 - Have an advanced filter algorithm. The syntax is in place, the parser is still
   missing:
 
