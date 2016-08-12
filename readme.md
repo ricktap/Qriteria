@@ -61,4 +61,8 @@ sort their execution sequence.
 
 - Write a more exhaustive documentation and maybe even a wiki
 - Write more tests
+- Have more checks in place
+- Map eq to =, lt to <, etc.
+- Split the searchable trait into two separate traits. one for filter and one for qriteria itself
+- further validate the user input, right now the only thing I'm doing is a check on the parentheses to see if they are balanced and in order
 
