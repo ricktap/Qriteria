@@ -11,7 +11,7 @@ use RickTap\Qriteria\Filters\Support\FilterContext;
 /**
  * @implements RickTap\Qriteria\Filter
  */
-class JsonApiFilter implements FilterInterface
+class NestedStringFilter implements FilterInterface
 {
     /**
      * Unprocessed list of filters.
@@ -20,13 +20,20 @@ class JsonApiFilter implements FilterInterface
      */
     protected $filterRequest;
 
+    /**
+     * Holds the context of recursively called filterNested.
+     *
+     * @var \RickTap\Qriteria\Filters\Support\FilterContext
+     */
     protected $context;
 
     public function __construct($filterRequest)
     {
-        $this->filterRequest = $filterRequest;
-        if (!Parentheses::isBalanced($filterRequest)) {
-            throw new UnbalancedParenthesesException();
+        if (is_string($filterRequest)) {
+            $this->filterRequest = $filterRequest;
+            if (!Parentheses::isBalanced($filterRequest)) {
+                throw new UnbalancedParenthesesException();
+            }
         }
     }
 
@@ -39,10 +46,16 @@ class JsonApiFilter implements FilterInterface
      */
     public function filterOn(Builder $query)
     {
-        $context = new FilterContext($query);
-        $this->filterNested($context);
+        $this->filterNested(new FilterContext($query));
     }
 
+    /**
+     * Recursive method, that is controlled by a context object.
+     * It translates the filter request into nested commands.
+     *
+     * @param  \RickTap\Qriteria\Filters\Support\FilterContext $context
+     * @return null
+     */
     protected function filterNested(FilterContext $context)
     {
         $this->context = $context;
@@ -73,6 +86,11 @@ class JsonApiFilter implements FilterInterface
         }
     }
 
+    /**
+     * Calls the filterNested method with a new context inside a nested query.
+     *
+     * @return null
+     */
     protected function processNextLevel()
     {
         // make a backup of the current context
@@ -90,6 +108,12 @@ class JsonApiFilter implements FilterInterface
         });
     }
 
+    /**
+     * Executes the query defined inside the context command and
+     * then resets the context commands.
+     *
+     * @return null
+     */
     protected function executeQueryAndResetCommand()
     {
         $parts = explode(":", $this->context->command);
@@ -102,16 +126,33 @@ class JsonApiFilter implements FilterInterface
         $this->context->command = "";
     }
 
+    /**
+     * Grabs a single character from the filterRequest at
+     * the context position.
+     *
+     * @return char Single character from filterRequest
+     */
     public function getChar()
     {
         return $this->filterRequest[$this->context->position];
     }
 
+    /**
+     * Builds up the command string char by char.
+     *
+     * @param  char $char Single Character
+     * @return null
+     */
     protected function appendCharToCommand($char)
     {
         $this->context->command .= $char;
     }
 
+    /**
+     * Sets the next operation glue to 'and' or 'or'.
+     *
+     * @return null
+     */
     protected function setNextOperation()
     {
         $nxtOp = ($this->getChar() === ',') ? "and" : "or";

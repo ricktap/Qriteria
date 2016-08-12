@@ -3,7 +3,8 @@
 return [
     "filter" => [
         "keyword" => "filter",
-        "class" => "RickTap\\Qriteria\\Filters\\JsonApiFilter"
+        //"class"   => "RickTap\\Qriteria\\Filters\\FieldArrayFilter"
+        "class" => "RickTap\\Qriteria\\Filters\\NestedStringFilter"
     ],
     "sort" => [
         "keyword" => "sort"

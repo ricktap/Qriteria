@@ -7,6 +7,18 @@ class Parentheses
     public static $open  = "(";
     public static $close = ")";
 
+    /**
+     * Checks a string for balanced parantheses.
+     * It checks if there is an equal amount of open and closed parens,
+     * and if they the are in the right order.
+     * Nesting and other characters are allowed.
+     * Examples:
+     * true:  (() test (a))
+     * false: ())()
+     *
+     * @param  string  $string String to test the balance on.
+     * @return boolean (true: balanced | false: unbalanced)
+     */
     public static function isBalanced($string)
     {
         // Keep track of number of open parens
@@ -28,6 +40,7 @@ class Parentheses
             }
         }
 
+        // there must be an equal amount of opened and closed parens
         return ($open === 0);
     }
 }
