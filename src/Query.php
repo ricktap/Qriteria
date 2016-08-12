@@ -3,6 +3,7 @@
 namespace RickTap\Qriteria;
 
 use Illuminate\Database\Eloquent\Model;
+use RickTap\Qriteria\NestedFilter;
 use Input;
 
 class Query
@@ -69,7 +70,8 @@ class Query
     public function __construct(Model $model, callable $queryCall = null)
     {
         // backup the model and query object
-        $this->model = $this->query = $model;
+        $this->model = $model;
+        $this->query = $model->query();
 
         $this->prepareQueryIfTrait();
 
@@ -221,17 +223,19 @@ class Query
         return $this;
     }
 
+    /**
+     * Filters the query by the request parameter 'filter'
+     *
+     * @return $this
+     */
     protected function filter()
     {
         $filterList = Input::get('filter');
-        $filters = explode(',', $filterList);
 
-        foreach ($filters as $filter) {
-            $filterParts = explode(":", $filter);
-            if (count($filterParts) == 3) {
-                $this->query->where($filterParts[0], $this->translateFilter($filterParts[1]), $filterParts[2]);
-            }
-        }
+        $FilterClass = $this->model->getFilterClass();
+
+        $filter = new $FilterClass($filterList);
+        $filter->filterOn($this->query);
 
         return $this;
     }
@@ -309,18 +313,5 @@ class Query
     {
         $fields = Input::get('fields', []);
         return (is_array($fields)) ? $fields : [$fields];
-    }
-
-    private function translateFilter($operator)
-    {
-        if (in_array($operator, static::$filterOperators)) {
-            return $operator;
-        }
-
-        if (!array_key_exists($operator, static::$filterOperators)) {
-            return "=";
-        }
-
-        return static::$filterOperators[$operator];
     }
 }
