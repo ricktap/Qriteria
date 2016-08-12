@@ -34,12 +34,7 @@ running the command:
 ```shell
 php artisan vendor:publish
 ``` 
-
-## Todo
-
-- Write a more exhaustive documentation and maybe even a wiki
-- Have an advanced filter algorithm. The syntax is in place, the parser is still
-  missing:
+## Filtering
 
 ### Syntax: 
 ```
@@ -61,3 +56,9 @@ the third part is the value to compare to. the filter statements are separated
 by a comma (,) or a pipe (|). The comma means **and** the pipe means **or**.
 Statements can be wrapped into parenthesis like in a mathematical function, to
 sort their execution sequence.
+
+## Todo
+
+- Write a more exhaustive documentation and maybe even a wiki
+- Write more tests
+
