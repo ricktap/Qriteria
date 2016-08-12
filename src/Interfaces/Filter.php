@@ -2,16 +2,18 @@
 
 namespace RickTap\Qriteria\Interfaces;
 
+use Illuminate\Database\Eloquent\Builder;
+
 interface Filter
 {
-    public function __construct($filterList);
+    public function __construct($filterRequest);
 
     /**
-     * Translates the $filterList property into commands and runs them on
+     * Translates the $filterRequest property into commands and runs them on
      * the query object.
      *
-     * @param  \Illuminate\Database\Query\Builder $query Query Object
+     * @param  \Illuminate\Database\Eloquent\Builder $query Query Object
      * @return null
      */
-    public function filterOn($query);
+    public function filterOn(Builder $query);
 }
