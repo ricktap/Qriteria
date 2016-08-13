@@ -4,7 +4,6 @@ namespace RickTap\Qriteria;
 
 use Illuminate\Database\Eloquent\Model;
 use RickTap\Qriteria\NestedFilter;
-use Input;
 
 class Query
 {
@@ -61,6 +60,8 @@ class Query
      */
     protected $includeFieldSelects = array();
 
+    protected $request;
+
     /**
      * Create a new Request Criteria Query instance.
      *
@@ -72,6 +73,9 @@ class Query
         // backup the model and query object
         $this->model = $model;
         $this->query = $model->query();
+
+        // get the request from the app
+        $this->request = request();
 
         $this->prepareQueryIfTrait();
 
@@ -131,7 +135,7 @@ class Query
     {
         return $this->query
                     ->paginate($this->limit)
-                    ->appends(Input::except('page'));
+                    ->appends($this->request->except('page'));
     }
 
     /**
@@ -154,7 +158,7 @@ class Query
      */
     protected function grabLimit()
     {
-        $this->limit = Input::get('limit', static::$defaultLimit);
+        $this->limit = $this->request->input('limit', static::$defaultLimit);
         return $this;
     }
 
@@ -166,7 +170,7 @@ class Query
      */
     protected function orderBy()
     {
-        $orders = explode(',', Input::get('orderBy'));
+        $orders = explode(',', $this->request->input('orderBy'));
 
         foreach ($orders as $order) {
             if (!empty($order)) {
@@ -212,7 +216,7 @@ class Query
      */
     protected function includeRelations()
     {
-        $includes = explode(',', Input::get('include', ''));
+        $includes = explode(',', $this->request->input('include', ''));
 
         foreach ($includes as $relation) {
             if (!empty($relation)) {
@@ -230,7 +234,7 @@ class Query
      */
     protected function filter()
     {
-        $filterList = Input::get('filter');
+        $filterList = $this->request->input('filter');
 
         $FilterClass = $this->model->getFilterClass();
 
@@ -311,7 +315,7 @@ class Query
      */
     private function grabFields()
     {
-        $fields = Input::get('fields', []);
+        $fields = $this->request->input('fields', []);
         return (is_array($fields)) ? $fields : [$fields];
     }
 }
